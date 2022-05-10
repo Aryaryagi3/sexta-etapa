@@ -21,8 +21,8 @@
             </div>
 
             <div class="form-group">
-                <label for="past-owner-name">Pessoa que trouxe o livro: </label>
-                <input type="text" name="past-owner-name" placeholder="Insira o nome da pessoa que trouxe o livro"  class="form-control">
+                <label for="brought-by">Pessoa que trouxe o livro: </label>
+                <input type="text" name="brought-by" placeholder="Insira o nome da pessoa que trouxe o livro"  class="form-control">
             </div>
 
             <div>

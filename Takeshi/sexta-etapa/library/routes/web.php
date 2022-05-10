@@ -19,9 +19,15 @@ Route::get('/', [BooksController::class, 'index']);
 Route::prefix('book')->group(function() {
     Route::get('/', [BooksController::class, 'create']);
     Route::post('/', [BooksController::class, 'store']);
+    
+    Route::post('{id}', [BorrowController::class, 'store']);
+    Route::patch('{id}', [BorrowController::class, 'update']);
+});
+
+Route::prefix('edit')->group(function() {
     Route::get('{id}', [BooksController::class, 'edit']);
     Route::patch('{id}', [BooksController::class, 'update']);
-    Route::delete('{id}', [BooksController::class, 'delete']);
+    Route::delete('{id}', [BooksController::class, 'destroy']);
 });
 
 Route::middleware([

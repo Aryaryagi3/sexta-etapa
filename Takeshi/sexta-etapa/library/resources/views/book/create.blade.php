@@ -5,7 +5,7 @@
 @section('content')
         <h1>Registrar Livro</h1>
 
-        <form method="POST" action="/book">
+        <form method="POST" action="/book" enctype="multipart/form-data">
             {{ csrf_field()}}
 
             <div class="form-group">
@@ -19,8 +19,12 @@
             </div>
 
             <div class="form-group">
-                <label for="past-owner-name">Pessoa que trouxe o livro: </label>
-                <input type="text" name="past-owner-name" placeholder="Insira o nome da pessoa que trouxe o livro"  class="form-control">
+                <label for="brought-by">Pessoa que trouxe o livro: </label>
+                <input type="text" name="brought-by" placeholder="Insira o nome da pessoa que trouxe o livro"  class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="cover">Capa do livro: </label>
+                <input type="file" name="cover" class="form-control">
             </div>
             <div>
                 <button class="btn btn-primary" type="submit">Cadastrar livro</button>

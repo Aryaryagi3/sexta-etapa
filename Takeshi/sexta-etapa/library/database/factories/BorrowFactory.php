@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BookFactory extends Factory
+class BorrowFactory extends Factory
 {
-        /**
+    /**
      * Define the model's default state.
      *
      * @return array
@@ -14,9 +14,9 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
-            'author' => $this->faker->name,
-            'brought_by' => $this->faker->name,
+            'returned' => $this->faker->boolean,
+            'user_id' => $this->faker->unique(true)->numberBetween(1, 100),
+            'book_id' => $this->faker->unique(true)->numberBetween(1, 100),
         ];
     }
 }
