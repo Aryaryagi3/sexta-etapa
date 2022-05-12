@@ -16,12 +16,12 @@ class BooksController extends Controller
     public function show($id)
     {
         $book = Book::find($id);
-        return view('book.show', ['book' => $book]);
+        return view('books.show', ['book' => $book]);
     }
 
     public function create()
     {
-        return view('book.create');
+        return view('books.create');
     }
 
     public function store(request $request)
@@ -30,40 +30,55 @@ class BooksController extends Controller
 
         $book->title = request('title');
         $book->author = request('author');
-        $book->brought_by = request('brought-by');
+        $book->user_id = auth()->user()->id;
         
         if($request->hasFile('cover') && $request->file('cover')->isValid())
         {
-            $requestImage = $request->cover;
-            $extension = $requestImage->extension();
+            $request_image = $request->cover;
+            $extension = $request_image->extension();
 
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime('now')) . "." . $extension;
+            $image_name = md5($request_image->getClientOriginalName() . strtotime('now')) . "." . $extension;
 
-            $requestImage->move(public_path('img/covers'), $imageName);
+            $request_image->move(public_path('img/covers'), $image_name);
 
-            $book->cover = $imageName;
+            $book->cover = $image_name;
         }
         $book->save();
 
-        return redirect('/');
+        return redirect('/books');
     }
 
     public function edit($id)
     {
         $book = Book::find($id);
-        return view('book.edit', ['book' => $book]);
+
+        $this->authorize('edit', $book);
+
+        return view('books.edit', ['book' => $book]);
     }
 
-    public function update($id)
+    public function update($id, request $request)
     {
         $book = Book::find($id);
 
+        $this->authorize('post', $book);
+
         $book->title = request('title');
         $book->author = request('author');
-        $book->past_owner_name = request('brought-by');
+        if($request->hasFile('cover') && $request->file('cover')->isValid())
+        {
+            $request_image = $request->cover;
+            $extension = $request_image->extension();
+
+            $image_name = md5($request_image->getClientOriginalName() . strtotime('now')) . "." . $extension;
+
+            $request_image->move(public_path('img/covers'), $image_name);
+
+            $book->cover = $image_name;
+        }
         $book->save();
 
-        return redirect('/');
+        return redirect('/borrow');
     }
 
     public function destroy($id)

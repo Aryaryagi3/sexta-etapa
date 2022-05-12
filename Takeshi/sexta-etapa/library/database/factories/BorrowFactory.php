@@ -14,7 +14,6 @@ class BorrowFactory extends Factory
     public function definition()
     {
         return [
-            'returned' => $this->faker->boolean,
             'user_id' => $this->faker->unique(true)->numberBetween(1, 100),
             'book_id' => $this->faker->unique(true)->numberBetween(1, 100),
         ];

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\BorrowController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,21 +16,13 @@ use App\Http\Controllers\BooksController;
 |
 */
 
-Route::get('/', [BooksController::class, 'index']);
-
-Route::prefix('book')->group(function() {
-    Route::get('/', [BooksController::class, 'create']);
-    Route::post('/', [BooksController::class, 'store']);
-    
-    Route::post('{id}', [BorrowController::class, 'store']);
-    Route::patch('{id}', [BorrowController::class, 'update']);
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::prefix('edit')->group(function() {
-    Route::get('{id}', [BooksController::class, 'edit']);
-    Route::patch('{id}', [BooksController::class, 'update']);
-    Route::delete('{id}', [BooksController::class, 'destroy']);
-});
+Route::resource('books', BooksController::class)->middleware('auth');
+
+Route::resource('borrow', BorrowController::class)->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
@@ -36,6 +30,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect('/');
     })->name('dashboard');
 });

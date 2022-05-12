@@ -6,6 +6,10 @@
         <h1>Livros da Biblioteca</h1>
         <br>
         <div class="table-responsive">
+            @if($books->isEmpty())
+            <h5>Ainda não há nenhum livro cadastrado na biblioteca</h5>
+
+            @else
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -21,20 +25,18 @@
                             <div>
                                 <tr style="height: 10rem">
                                     <td style="width: 12%">
-                                        <a href="/book/{{$book->id}}">
-                                            <img style="width: 110%" src="/img/covers/{{$book->cover}}" alt="Book cover">
-                                        </a>
+                                        <img style="width: 110%" src="/img/covers/{{$book->cover}}" alt="Book cover">
                                     </td>
                                     <td style="width: 28%">{{$book->title}}</td>
                                     <td style="width: 20%">{{$book->author}}</td>
-                                    <td style="width: 20%">{{$book->brought_by}}</td>
+                                    <td style="width: 20%">{{$book->user->name}}</td>
                                     <td style="width: 20%">
                                         @if ($book->available == 0)
-                                        {{$book->available}}
                                         Não Disponível
                                         @else
-                                            <form method="POST" action="/book/{{$book->id}}">
+                                            <form method="POST" action="/borrow">
                                                 {{ csrf_field()}}
+                                                <input type="hidden" name="book-id" value="{{$book->id}}">
                                                 <button class="btn btn-primary btn-success" type="submit">Pegar emprestado</button>
                                             </form>
                                         @endif
@@ -44,6 +46,7 @@
                     @endforeach
                 <tbody>
             </table>
+            @endif
         </div>
         {{ $books->links()}}
     @endsection

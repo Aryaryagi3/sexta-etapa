@@ -11,10 +11,10 @@ class Borrow extends Model
     use HasFactory;
 
     public function user() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function book() {
-        return $this->hasOne(Book::class);
+        return $this->belongsTo(Book::class, 'book_id');
     }
 }

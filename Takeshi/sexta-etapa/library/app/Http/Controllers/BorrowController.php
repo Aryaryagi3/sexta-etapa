@@ -4,33 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Borrow;
+use App\Models\Book;
 
 class BorrowController extends Controller
 {
-    public function store(Request $request, $id)
+    public function index()
+    {
+        $borrow = Borrow::where('user_id', auth()->id())->where('returned', 0)->paginate(5);
+        $books = Book::where('user_id', auth()->id())->paginate(5);
+        $user = auth()->user()->name;
+
+        return view('borrow.index', ['borrow' => $borrow, 'books' => $books, 'user' => $user]);
+    }
+
+    public function store()
     {
         $borrow = new Borrow();
 
-        $borrow->user_id = request('title');
-        $book->author = request('author');
-        $book->brought_by = request('brought-by');
-        
-        if($request->hasFile('cover') && $request->file('cover')->isValid())
-        {
-            $requestImage = $request->cover;
-            $extension = $requestImage->extension();
+        $book = Book::find(request('book-id'));
 
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime('now')) . "." . $extension;
+        $borrow->book_id = request('book-id');
+        $borrow->user_id = auth()->user()->id;
 
-            $requestImage->move(public_path('img/covers'), $imageName);
+        $book->available = 0;
 
-            $book->cover = $imageName;
-        }
         $book->save();
+        $borrow->save();
+        return redirect('/borrow');
     }
 
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        $borrow = Borrow::find($id);
+
+        $book = Book::find($borrow->book_id);
+
+        $borrow->returned = 1;
+        $borrow->return_date = $current_date_time;
+
+        $book->available = 1;
+
+        $book->save();
+        $borrow->save();
+
+        return redirect('/borrow');
     }
 }
