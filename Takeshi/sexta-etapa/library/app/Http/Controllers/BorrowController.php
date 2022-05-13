@@ -33,11 +33,9 @@ class BorrowController extends Controller
         return redirect('/borrow');
     }
 
-    public function update($id)
+    public function update(Borrow $borrow)
     {
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        $borrow = Borrow::find($id);
-
         $book = Book::find($borrow->book_id);
 
         $borrow->returned = 1;

@@ -13,12 +13,6 @@ class BooksController extends Controller
         return view('books.index', ['books' => $books]);
     }
 
-    public function show($id)
-    {
-        $book = Book::find($id);
-        return view('books.show', ['book' => $book]);
-    }
-
     public function create()
     {
         return view('books.create');
@@ -48,19 +42,15 @@ class BooksController extends Controller
         return redirect('/books');
     }
 
-    public function edit($id)
+    public function edit(Book $book)
     {
-        $book = Book::find($id);
-
         $this->authorize('edit', $book);
 
         return view('books.edit', ['book' => $book]);
     }
 
-    public function update($id, request $request)
+    public function update(Book $book, request $request)
     {
-        $book = Book::find($id);
-
         $this->authorize('post', $book);
 
         $book->title = request('title');
@@ -81,9 +71,9 @@ class BooksController extends Controller
         return redirect('/borrow');
     }
 
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        $book = Book::find($id)->delete();
+        $book->delete();
 
         return redirect('/borrow');
     }
