@@ -28,7 +28,7 @@
                                             <img style="width: 110%" src="/img/covers/{{$borrowed->book->cover}}" alt="Book cover">
                                         </td>
                                         <td style="width: 28%">{{$borrowed->book->title}}</td>
-                                        <td style="width: 20%">{{$borrowed->user->name}}</td>
+                                        <td style="width: 20%">{{$borrowed->book->user->name}}</td>
                                         <td style="width: 20%">{{$borrowed->borrow_date}}</td>
                                         <td style="width: 20%">
                                             <form method="POST" action="/borrow/{{$borrowed->id}}">
@@ -88,4 +88,5 @@
             </div>
             {{ $books->links()}}
         </div>
+        <br>
     @endsection

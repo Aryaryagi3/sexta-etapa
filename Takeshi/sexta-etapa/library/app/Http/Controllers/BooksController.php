@@ -85,6 +85,6 @@ class BooksController extends Controller
     {
         $book = Book::find($id)->delete();
 
-        return redirect('/');
+        return redirect('/borrow');
     }
 }

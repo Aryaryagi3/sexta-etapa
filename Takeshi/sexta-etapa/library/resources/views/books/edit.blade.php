@@ -31,6 +31,12 @@
             </div>
         </form>
         <br>
+        <form method="POST" onsubmit="return confirm('Deseja mesmo retirar o livro da biblioteca?')" action="/books/{{$book->id}}">
+            {{ method_field('DELETE') }}
+            {{ csrf_field()}}
+            <button class="btn btn-primary btn-danger" type="submit">Apagar livro</button>
+        </form>
+        <br>
         <script>
             function validate() {
                 let elements = document.getElementById("form").elements;
@@ -43,7 +49,7 @@
                     return false;
                     }
                 }
-                alert("Livro cadastrado com sucesso.");
+                alert("Livro editado com sucesso.");
             };
         </script>
 @endsection
