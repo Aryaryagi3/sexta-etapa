@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Livros Disponíveis')
+@section('title', 'Livros')
 
 @section('content')
         <h1>Livros da Biblioteca</h1>
@@ -10,7 +10,7 @@
             <h5>Ainda não há nenhum livro cadastrado na biblioteca</h5>
 
             @else
-            <table class="table table-striped">
+            <table class="table">
                 <thead>
                     <tr>
                         <th><h5>Capa</h5></th>

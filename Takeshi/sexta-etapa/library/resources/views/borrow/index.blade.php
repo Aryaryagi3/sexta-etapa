@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Livros Disponíveis')
+@section('title', 'Seus Livros')
 
 @section('content')
         <div>
@@ -10,7 +10,7 @@
                 @if($borrow->isEmpty())
                 <h5>Você ainda não pegou nenhum livro emprestado da biblioteca</h5>
                 @else
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <th><h5>Capa</h5></th>
@@ -25,9 +25,7 @@
                                 <div>
                                     <tr style="height: 10rem">
                                         <td style="width: 12%">
-                                            <a href="/book/{{$borrowed->book->id}}">
-                                                <img style="width: 110%" src="/img/covers/{{$borrowed->book->cover}}" alt="Book cover">
-                                            </a>
+                                            <img style="width: 110%" src="/img/covers/{{$borrowed->book->cover}}" alt="Book cover">
                                         </td>
                                         <td style="width: 28%">{{$borrowed->book->title}}</td>
                                         <td style="width: 20%">{{$borrowed->user->name}}</td>
@@ -58,7 +56,7 @@
                 @if($books->isEmpty())
                 <h5>Você ainda não cadastrou nenhum livro na biblioteca</h5>
                 @else
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <th><h5>Capa</h5></th>
@@ -73,9 +71,7 @@
                                 <div>
                                     <tr style="height: 10rem">
                                         <td style="width: 12%">
-                                            <a href="/book/{{$book->id}}">
-                                                <img style="width: 110%" src="/img/covers/{{$book->cover}}" alt="Book cover">
-                                            </a>
+                                            <img style="width: 110%" src="/img/covers/{{$book->cover}}" alt="Book cover">
                                         </td>
                                         <td style="width: 28%">{{$book->title}}</td>
                                         <td style="width: 20%">{{$book->author}}</td>

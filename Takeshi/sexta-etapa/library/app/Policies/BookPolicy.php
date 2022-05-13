@@ -30,3 +30,4 @@ class BookPolicy
         return $book->user_id == $user->id;
     }
 }
+

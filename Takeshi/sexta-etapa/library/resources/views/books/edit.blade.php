@@ -10,13 +10,13 @@
             {{ method_field('PATCH') }}
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Insira o título do livro a ser cadastrado">
+                <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Insira o título do livro a ser cadastrado" value="{{$book->title}}">
                 <label for="floatingInput">Título do livro</label>
                 <p class="text-secondary"><small>Formato: exemplo exemplo exemplo</small></p>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" name="author" placeholder="Insira o autor do livro a ser cadastrado">
+                <input type="text" class="form-control" id="floatingInput" name="author" placeholder="Insira o autor do livro a ser cadastrado" value="{{$book->author}}">
                 <label for="floatingInput">Autor do livro</label>
                 <p class="text-secondary"><small>Formato: exemplo exemplo</small></p>
             </div>

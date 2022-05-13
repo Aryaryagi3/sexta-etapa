@@ -6,7 +6,7 @@
 
         <title>@yield('title')</title>
 
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -23,25 +23,24 @@
         crossorigin="anonymous">
         </script>
 
-        <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
         crossorigin="anonymous">
 
-
+        <link src="/css/custom.css" rel="stylesheet">
 
         <style>
             body {
-                font-family: 'Nunito', sans-serif;
+                font-family: 'Nanum Gothic', sans-serif;
             }
         </style>
     </head>
-    <body class="d-flex flex-column min-vh-100">
+    <body class="d-flex flex-column min-vh-100" style="background-color: #e5e5dc">
         <header>
-            <nav class="p-2 navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+            <nav class="p-2 navbar navbar-expand-lg justify-content-between"  style="background-color: #26495c">
                 <div>
-                    <a class="navbar-brand" href="/">Biblioteca da Let's</a>
+                    <a class="navbar-brand text-light" href="/" >Biblioteca da Let's</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -49,13 +48,13 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a class="nav-link" href="/books">Livros</a>
+                      <a class="nav-link text-light" href="/books">Livros</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/books/create">Cadastrar Livro</a>
+                      <a class="nav-link text-light" href="/books/create">Cadastrar Livro</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Sua conta
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -85,8 +84,11 @@
             <br>
             @yield('content')
         </main>
-        <footer class="p-2 navbar navbar-expand-lg navbar-dark bg-dark mt-auto">
-            <a class="navbar-brand" href='/'>Biblioteca da Let's</a>
+        <footer class="text-center text-lg-start text-muted mt-auto text-light" style="background-color: #26495c">
+          <div class="text-center p-4 text-light">
+            © 2022 Copyright:
+            <a class="text-reset fw-bold text-decoration-none text-light" href="/">Biblioteca da Let's</a>
+          </div>
         </footer>
     </body>
 </html>
