@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('author', 100);
             $table->unsignedInteger('user_id');
             $table->boolean('available')->default(true);
-            $table->string('cover')->default('04b7708edaf2ea6e524f97c119238f46.png');
+            $table->string('cover')->default('04b7708edaf2ea6e524f97c119238f46.jpg');
             $table->timestamps();
         });
     }
