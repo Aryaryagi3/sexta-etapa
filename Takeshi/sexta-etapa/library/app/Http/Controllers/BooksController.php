@@ -55,6 +55,7 @@ class BooksController extends Controller
 
         $book->title = request('title');
         $book->author = request('author');
+        
         if($request->hasFile('cover') && $request->file('cover')->isValid())
         {
             $request_image = $request->cover;
