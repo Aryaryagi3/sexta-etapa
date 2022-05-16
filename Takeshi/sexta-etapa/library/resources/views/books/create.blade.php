@@ -30,19 +30,5 @@
             </div>
         </form>
         <br>
-        <script>
-            function validate() {
-                let elements = document.getElementById("form").elements;
-                let keyWords = ['', 'título', 'autor', 'capa do livro']
 
-                for (let i = 0; i < 4; i++) {
-                    console.log(elements[i]);
-                    if (elements[i].value == "") {
-                    alert("Por favor, preencha o campo " + keyWords[i]);
-                    return false;
-                    }
-                }
-                alert("Livro cadastrado com sucesso.");
-            };
-        </script>
 @endsection

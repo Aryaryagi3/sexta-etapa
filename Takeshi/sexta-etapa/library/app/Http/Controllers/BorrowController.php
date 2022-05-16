@@ -10,15 +10,20 @@ class BorrowController extends Controller
 {
     public function index()
     {
-        $borrow = Borrow::where('user_id', auth()->id())->where('returned', 0)->paginate(5);
-        $books = Book::where('user_id', auth()->id())->paginate(5);
-        $user = auth()->user()->name;
+        $currentUser =  auth()->user();
+        $borrow = $currentUser->borrows()->where('returned', 0)->paginate(5);
+        $books = $currentUser->books()->paginate(5);
+        $user = $currentUser->name;
 
         return view('borrow.index', ['borrow' => $borrow, 'books' => $books, 'user' => $user]);
     }
 
     public function store()
     {
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        $book = Book::create($data);
+        
         $borrow = new Borrow();
 
         $book = Book::find(request('book-id'));

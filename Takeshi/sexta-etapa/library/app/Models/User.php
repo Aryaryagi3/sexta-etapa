@@ -59,7 +59,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function borrow() {
+    public function borrows() {
         return $this->hasMany(Borrow::class);
+    }
+
+    public function books() {
+        return $this->hasMany(Book::class);
     }
 }

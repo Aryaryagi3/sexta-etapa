@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Borrow;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookRequest;
+
+use App\Actions\SaveBookCoverAction;
 
 class BooksController extends Controller
 {
@@ -18,26 +22,16 @@ class BooksController extends Controller
         return view('books.create');
     }
 
-    public function store(request $request)
+    public function store(BookRequest $request)
     {
-        $book = new Book();
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        $book = Book::create($data);
 
-        $book->title = request('title');
-        $book->author = request('author');
-        $book->user_id = auth()->user()->id;
-        
-        if($request->hasFile('cover') && $request->file('cover')->isValid())
+        if($book->cover)
         {
-            $request_image = $request->cover;
-            $extension = $request_image->extension();
-
-            $image_name = md5($request_image->getClientOriginalName() . strtotime('now')) . "." . $extension;
-
-            $request_image->move(public_path('img/covers'), $image_name);
-
-            $book->cover = $image_name;
+            (new SaveBookCoverAction())->execute($request, $book);
         }
-        $book->save();
 
         return redirect('/books');
     }
@@ -49,33 +43,26 @@ class BooksController extends Controller
         return view('books.edit', ['book' => $book]);
     }
 
-    public function update(Book $book, request $request)
+    public function update(Book $book, BookRequest $request)
     {
         $this->authorize('post', $book);
 
-        $book->title = request('title');
-        $book->author = request('author');
-        
-        if($request->hasFile('cover') && $request->file('cover')->isValid())
+        $data = $request->validated();
+        $book->update($data);
+
+        if($book->cover)
         {
-            $request_image = $request->cover;
-            $extension = $request_image->extension();
-
-            $image_name = md5($request_image->getClientOriginalName() . strtotime('now')) . "." . $extension;
-
-            $request_image->move(public_path('img/covers'), $image_name);
-
-            $book->cover = $image_name;
+            (new SaveBookCoverAction())->execute($request, $book);
         }
-        $book->save();
 
         return redirect('/borrow');
     }
 
     public function destroy(Book $book)
     {
-        $book->delete();
+        $this->authorize('delete', $book);
 
+        $book->delete();
         return redirect('/borrow');
     }
 }

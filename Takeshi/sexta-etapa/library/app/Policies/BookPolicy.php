@@ -8,24 +8,22 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BookPolicy
 {
-    use HandlesAuthorization;
-
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     public function edit(User $user, Book $book)
     {
-        return $book->user_id == $user->id;
+        return $this->canHandle($user, $book);
     }
 
     public function post(User $user, Book $book)
+    {
+        return $this->canHandle($user, $book);
+    }
+
+    public function delete(User $user, Book $book)
+    {
+        return $this->canHandle($user, $book);
+    }
+
+    private function canHandle(User $user, Book $book)
     {
         return $book->user_id == $user->id;
     }
