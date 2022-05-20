@@ -49,7 +49,7 @@ class BooksController extends Controller
         $data = $request->validated();
         $book->update($data);
 
-        if($book->cover)
+        if($book->cover && $request->cover)
         {
             (new SaveBookCoverAction())->execute($request, $book);
         }
