@@ -34,8 +34,9 @@
         <form method="POST" onsubmit="return confirm('Deseja mesmo retirar o livro da biblioteca?')" action="/books/{{$book->id}}">
             {{ method_field('DELETE') }}
             {{ csrf_field()}}
-            <button class="btn btn-primary btn-danger" type="submit">Apagar livro</button>
+            <button class="btn btn-primary btn-danger" type="submit">Remover livro</button>
         </form>
+        <p class="text-secondary"><small>É necessário que o livro esteja disponível para ser removido da biblioteca</small></p>
         <br>
         <script>
             function validate() {

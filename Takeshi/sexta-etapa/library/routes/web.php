@@ -23,13 +23,3 @@ Route::get('/', function () {
 Route::resource('books', BooksController::class)->middleware('auth');
 
 Route::resource('borrow', BorrowController::class)->middleware('auth');
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return redirect('/dashboard');
-    })->name('dashboard');
-});

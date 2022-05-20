@@ -20,7 +20,11 @@ class BookPolicy
 
     public function delete(User $user, Book $book)
     {
-        return $this->canHandle($user, $book);
+        if ($book->available == 1) {
+            return $this->canHandle($user, $book);
+        } else {
+            return false;
+        }
     }
 
     private function canHandle(User $user, Book $book)

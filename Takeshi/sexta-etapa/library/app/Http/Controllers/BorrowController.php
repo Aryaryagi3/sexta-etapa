@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BorrowRequest;
 use Illuminate\Http\Request;
 use App\Models\Borrow;
 use App\Models\Book;
@@ -18,38 +19,30 @@ class BorrowController extends Controller
         return view('borrow.index', ['borrow' => $borrow, 'books' => $books, 'user' => $user]);
     }
 
-    public function store()
+    public function store(BorrowRequest $request)
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $book = Book::create($data);
-        
-        $borrow = new Borrow();
+        Borrow::create($data);
 
-        $book = Book::find(request('book-id'));
-
-        $borrow->book_id = request('book-id');
-        $borrow->user_id = auth()->user()->id;
-
+        $book = Book::find($data['book_id']);
         $book->available = 0;
-
-        $book->save();
-        $borrow->save();
+        $book->update();
+        
         return redirect('/borrow');
     }
 
     public function update(Borrow $borrow)
     {
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        $book = Book::find($borrow->book_id);
-
         $borrow->returned = 1;
         $borrow->return_date = $current_date_time;
 
+        $book = Book::find($borrow->book_id);
         $book->available = 1;
 
-        $book->save();
-        $borrow->save();
+        $book->update();
+        $borrow->update();
 
         return redirect('/borrow');
     }

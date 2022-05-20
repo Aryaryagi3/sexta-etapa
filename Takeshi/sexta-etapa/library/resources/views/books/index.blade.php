@@ -7,7 +7,7 @@
         <br>
         <div class="table-responsive">
             @if($books->isEmpty())
-            <h5>Ainda não há nenhum livro cadastrado na biblioteca</h5>
+            <h5>A biblioteca está vazia</h5>
 
             @else
             <table class="table">
@@ -36,7 +36,7 @@
                                         @else
                                             <form method="POST" action="/borrow">
                                                 {{ csrf_field()}}
-                                                <input type="hidden" name="book-id" value="{{$book->id}}">
+                                                <input type="hidden" name="book_id" value="{{$book->id}}">
                                                 <button class="btn btn-primary btn-success" type="submit">Pegar emprestado</button>
                                             </form>
                                         @endif

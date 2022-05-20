@@ -10,6 +10,12 @@ class Borrow extends Model
     protected $table = "borrow";
     use HasFactory;
 
+
+    protected $fillable = [
+        'book_id',
+        'user_id'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
