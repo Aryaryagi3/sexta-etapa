@@ -16,12 +16,10 @@ use App\Http\Controllers\BorrowController;
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    
-    Route::resource('books', BooksController::class)->middleware('auth');
-    
-    Route::resource('borrow', BorrowController::class)->middleware('auth');
+Route::get('/', function () {
+    return view('welcome');
 });
+    
+Route::resource('books', BooksController::class)->middleware('auth');
+    
+Route::resource('borrow', BorrowController::class)->middleware('auth');
